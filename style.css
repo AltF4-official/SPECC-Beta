@@ -1,0 +1,251 @@
+/* Neon SPECC Game Style */
+
+body {
+    background: #101820;
+    font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+.specc-stars-bg {
+    position: fixed;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    z-index: 0; pointer-events: none;
+}
+.specc-star {
+    position: absolute;
+    border-radius: 100%;
+    background: #44eaf2;
+    opacity: .88;
+    pointer-events: none;
+    transition: opacity .7s;
+}
+.specc-star.blue { background: #00eaff; }
+.specc-star.bright { background: #d6f7ff; }
+.specc-star.gold { background: #ffe47a; }
+.specc-star.faint { background: #0ff; opacity: .23; }
+
+.neon-glow {
+    text-shadow: 0 0 18px #0ff, 0 0 5px #fff;
+}
+.neon-btn {
+    font-size: 1.22em;
+    font-family: inherit;
+    color: #0ff;
+    background: #171c2b;
+    border: 2.2px solid #0ff;
+    border-radius: 11px;
+    padding: 0.47em 2.1em;
+    margin: 12px 0;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 0 13px #0ff7, 0 0 2px #fff5;
+    transition: background .14s, box-shadow .21s, color .21s;
+}
+.neon-btn:hover, .neon-btn:focus {
+    background: #181f36;
+    color: #fff;
+    box-shadow: 0 0 19px #0ff, 0 0 7px #fff;
+}
+#speccTitle {
+    font-size: 4.2em;
+    letter-spacing: .19em;
+    font-weight: bold;
+    color: #0ff;
+    margin-bottom: .5em;
+    text-align: center;
+    margin-top: 1.5em;
+    filter: drop-shadow(0 0 19px #0ff);
+    animation: speccTitleIn .8s cubic-bezier(.2,.8,.3,1.2);
+}
+@keyframes speccTitleIn {
+    from { opacity: 0; transform: scale(.8);}
+    to { opacity: 1; transform: scale(1);}
+}
+#speccMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2em;
+    margin-top: 2.2em;
+}
+.specc-highscore {
+    color: #fff;
+    text-shadow: 0 0 9px #0ff, 0 0 1px #fff;
+    background: rgba(20,28,40,0.7);
+    border-radius: 8px;
+    padding: 2.5px 11px;
+    user-select: none;
+    position: absolute;
+    z-index: 10;
+}
+
+#specc-canvas {
+    position: absolute;
+    left: 50%; top: 53%;
+    transform: translate(-50%, -52%);
+    background: #101820dd;
+    border: 3.5px solid #0ff;
+    border-radius: 23px;
+    box-shadow: 0 0 42px #0ff7, 0 0 7px #fff2;
+    z-index: 2;
+    transition: box-shadow .23s;
+}
+#game-hud {
+    position: absolute;
+    left: 50%; bottom: 2.6%;
+    transform: translateX(-50%);
+    z-index: 9;
+    width: 1000px; max-width: 100vw;
+    pointer-events: none;
+    display: flex; flex-direction: column; align-items: center;
+}
+
+/* HUD Row */
+.hud-row {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 12px;
+    width: 100%;
+}
+.hud-box {
+    min-width: 106px;
+    min-height: 44px;
+    padding: 10px 0 8px 0;
+    border-radius: 13px;
+    text-align: center;
+    font-size: 1.09em;
+    letter-spacing: .04em;
+    color: #fff;
+    border: 2.7px solid #0ff;
+    margin-right: 0;
+    background: #161d28e6;
+    box-shadow: 0 0 8px #0ff6;
+    user-select: none;
+    transition: box-shadow .19s, border-color .18s, background .23s;
+    position: relative;
+    overflow: hidden;
+}
+.hud-weapon.selected {
+    background: #072b3bc9;
+    border-color: #fff;
+    box-shadow: 0 0 24px #0ffb, 0 0 2px #fff;
+    color: #0ff;
+    font-weight: bold;
+    animation: pulseGlow .8s infinite alternate;
+}
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 17px #0ff7, 0 0 2px #fff; }
+    to { box-shadow: 0 0 32px #0ff, 0 0 5px #fff; }
+}
+/* Special HUD Styling */
+.hud-special {
+    min-width: 115px;
+    background: #12293aee;
+    color: #fff;
+    border-color: #7df9ff;
+    margin-left: 19px;
+    margin-right: 0;
+    position: relative;
+    transition: background .2s, border-color .2s;
+}
+.hud-special.ready {
+    border-color: #36dfff;
+    background: #182a3b;
+    box-shadow: 0 0 16px #36dfff7a, 0 0 2px #fff2;
+    animation: pulseSpecial .8s infinite alternate;
+}
+@keyframes pulseSpecial {
+    from { box-shadow: 0 0 22px #36dfffc1, 0 0 2px #fff2; }
+    to   { box-shadow: 0 0 39px #36dfff, 0 0 6px #fff; }
+}
+.hud-special.cooldown { opacity: 0.55; background: #192d38ee;}
+.hud-special-cd {
+    position: absolute; left: 0; top: 0; height: 100%;
+    background: #2c8fcccc;
+    z-index: 1;
+    pointer-events: none;
+    transition: width .2s;
+}
+.hud-special-txt {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: #7df9ff;
+    font-size: 1em;
+    z-index: 2;
+    font-weight: bold;
+    text-shadow: 0 0 6px #7df9ff;
+    pointer-events: none;
+    letter-spacing: .03em;
+}
+
+/* Health Bar */
+.hud-health {
+    position: absolute;
+    left: 0; bottom: -22px;
+    width: 220px;
+    height: 28px;
+    background: #2d0e17c5;
+    border-radius: 16px;
+    border: 2.5px solid #fd4c63;
+    box-shadow: 0 0 14px #fd4c63bb;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-size: 1em;
+    overflow: visible;
+    z-index: 8;
+}
+.hud-health-bar {
+    height: 100%;
+    background: linear-gradient(90deg,#fd4c63,#ff2a50 80%);
+    border-radius: 15px 0 0 15px;
+    transition: width .23s cubic-bezier(.5,.7,.2,1.3);
+    position: absolute; left: 0; top: 0;
+    z-index: 1;
+}
+.hud-health-txt {
+    position: absolute;
+    left: 60px; top: 0; height: 100%;
+    width: 120px;
+    text-align: center;
+    z-index: 2;
+    font-size: 1.05em;
+    color: #fff;
+    text-shadow: 0 0 8px #fd4c63, 0 0 2px #fff;
+    font-family: inherit;
+    letter-spacing: .13em;
+    line-height: 28px;
+    user-select: none;
+}
+
+/* Pause/Death Overlay */
+#pause-overlay, #dead-overlay {
+    position: fixed;
+    left: 0; top: 0; 
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    z-index: 3000;
+    background: rgba(0,0,0,0.7);
+    pointer-events: auto;
+}
+.dead-modal {
+    background: #191c25cc;
+    border-radius: 22px;
+    border: 2.9px solid #fd4c63;
+    box-shadow: 0 0 19px #fd4c63a8, 0 0 2px #fff;
+    padding: 2.6em 4.2em 2.5em 4.2em;
+    text-align: center;
+    animation: deadIn .9s cubic-bezier(.17,.7,.2,1.2);
+}
+@keyframes deadIn {
+    from { opacity: 0; transform: scale(.86);}
+    to { opacity: 1; transform: scale(1);}
+}
+
+/* Scrollbar hidden for neon look */
+::-webkit-scrollbar { width: 0 !important; background: transparent; }
