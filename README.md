@@ -1,14 +1,14 @@
 SPECC is an early-stage demo of a browser-based 2D space shooter game. The goal of the project is to create an arcade-style experience featuring:
 
-. Wave-based enemy combat
+Wave-based enemy combat
 
-. A variety of ranged and melee weapons
+A variety of ranged and melee weapons
 
-. A microchip-based currency system
+A microchip-based currency system
 
-. A customizable settings menu
+A customizable settings menu
 
-. Save/load functionality
+Save/load functionality
 
 At this point in development, the game includes a fully animated title screen and an interactive in-game shop where players can browse and purchase items. Core gameplay systems — such as movement, shooting mechanics, and enemy wave generation — are currently in progress.
 
